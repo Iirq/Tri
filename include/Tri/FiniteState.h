@@ -98,7 +98,15 @@ public:
     using Transition = typename StatesTable::Transition;
     using Processor = typename StatesTable::Processor;
 
-    // treatinf event
+    FiniteState() { start(); }
+
+    void start()
+    {
+        m_currentState = States::start;
+        m_completionStatus = CompletionStatus::unFinished;
+    }
+
+    // treat event
     ActionResult treat(Events e)
     {
         const Transition& target = m_statesTable.getTransition(m_currentState, e);
@@ -112,9 +120,6 @@ public:
     }
 
     CompletionStatus getCompletionStatus() const { return m_completionStatus; }
-
-    FiniteState(States currentState = States::start)
-        : m_currentState(currentState){};
 
     // default actions
     ActionResult empty() { return ActionResult::unProcessed; }
@@ -132,7 +137,7 @@ public:
 
 protected:
     States m_currentState;
-    CompletionStatus m_completionStatus = CompletionStatus::unFinished;
+    CompletionStatus m_completionStatus;
 
     static StatesTable m_statesTable;
 };

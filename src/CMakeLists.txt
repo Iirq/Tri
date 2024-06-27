@@ -25,7 +25,6 @@ target_sources(TriLib
             "../include/Tri/DerivedThis.h"
             "../include/Tri/EnumArray.h"
             "../include/Tri/FiniteState.h"
-            "../include/Tri/FiniteState2.h"
             "../include/Tri/Intersections.h"
             "../include/Tri/IsNear.h"
             "../include/Tri/Line3d.h"

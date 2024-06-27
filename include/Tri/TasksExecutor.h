@@ -43,6 +43,8 @@ class TaskExecutor : public FiniteState<TaskExecutor, TaskExecutorEnums>
 public:
     using Base = FiniteState<TaskExecutor, TaskExecutorEnums>;
 
+    TaskExecutor(size_t currentLineNumber = 0, const std::string& m_currentLine = {});
+
     // start function
     void execute(std::istream& istr);
 
@@ -67,11 +69,13 @@ public:
     void setLineNumber(size_t lineNumber);
     size_t getLineNumber() const;
 
+    const Task& getTask() const { return m_task; }
+
 private:
     ActionResult readPoint(void (Task::*setTriangle)(const Triangle&));
 
 private:
-    size_t m_currentLineNumber = 0;
+    size_t m_currentLineNumber;
     std::string m_currentLine;
 
     Task m_task;

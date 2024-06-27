@@ -3,6 +3,5 @@
 
 bool Task::execute()
 {
-    bool intersects = doesIntersect(m_tr1, m_tr2);
-    return intersects == m_expectedResult;
+    return doesIntersect(m_tr1, m_tr2);
 }

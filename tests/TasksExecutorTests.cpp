@@ -11,36 +11,8 @@
 
 namespace Tests
 {
-
-struct IsNear : public TestCaseImpl<IsNear>
+namespace
 {
-    bool run() const final
-    {
-        if (!isNear(Point3d(1, 1, 1), Point3d(1, 1, 1), Tolerance)) return false;
-        if (isNear(Point3d(1, 1, 2), Point3d(1, 1, 1), Tolerance)) return false;
-
-        if (!isNear(Vector3d(1, 1, 1), Vector3d(1, 1, 1), Tolerance)) return false;
-        if (isNear(Vector3d(1, 1, 2), Vector3d(1, 1, 1), Tolerance)) return false;
-
-        return true;
-    }
-};
-static const IsNear addToTestsIsNear;
-
-struct TriangleTest : public TestCaseImpl<TriangleTest>
-{
-    bool run() const final
-    {
-        Triangle tri({Point3d{1, 1, 1}, Point3d{2, 2, 2}, Point3d{3, 3, 3}});
-
-        if (!isNear(tri.p0, Point3d(1, 1, 1), Tolerance)) return false;
-        if (!isNear(tri.p1, Point3d(2, 2, 2), Tolerance)) return false;
-        if (!isNear(tri.p2, Point3d(3, 3, 3), Tolerance)) return false;
-
-        return true;
-    }
-};
-static const TriangleTest addToTestsTriangleTest;
 
 struct ReadPoint : public TestCaseImpl<ReadPoint>
 {
@@ -84,6 +56,20 @@ struct ReadPoint : public TestCaseImpl<ReadPoint>
             if (!point) return false;
             if (!isNear(*point, Point3d(1, 1, 1), Tolerance)) return false;
         }
+        {
+            std::istringstream str("123 1 1");
+            auto it = std::istream_iterator<double>(str);
+            auto point = readPoint(it);
+            if (!point) return false;
+            if (!isNear(*point, Point3d(123, 1, 1), Tolerance)) return false;
+        }
+        {
+            std::istringstream str("1 123 1 1");
+            auto it = std::istream_iterator<double>(str);
+            auto point = readPoint(it);
+            if (!point) return false;
+            if (!isNear(*point, Point3d(1, 123, 1), Tolerance)) return false;
+        }
         return true;
     }
 };
@@ -122,6 +108,11 @@ struct ReadTriangle : public TestCaseImpl<ReadTriangle>
         }
         {
             std::string str("1 1 1 2 2 2 3 3 3 a");
+            auto triangle = readTriangle(str);
+            if (!triangle) return false;
+        }
+        {
+            std::string str(" 0 0 0 10 0 0 0 10 0");
             auto triangle = readTriangle(str);
             if (!triangle) return false;
         }
@@ -258,5 +249,5 @@ struct TasksExecutorMultiTaskTests : public TestCaseImpl<TasksExecutorMultiTaskT
     }
 };
 static const TasksExecutorMultiTaskTests addToTestsTasksExecutorMultiTaskTests;
-
+} // namespace
 } // namespace Tests

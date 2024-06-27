@@ -9,6 +9,21 @@
 #include <fstream>
 #include <iostream>
 
+namespace
+{
+std::string toString(bool v)
+{
+    return (v ? "true" : "false");
+}
+} // namespace
+
+TaskExecutor::TaskExecutor(size_t currentLineNumber, const std::string& m_currentLine)
+    : Base()
+    , m_currentLineNumber(currentLineNumber)
+    , m_currentLine(m_currentLine)
+{
+}
+
 void TasksExecutor::execute(std::istream& istr)
 {
     while (!istr.eof())
@@ -63,6 +78,7 @@ TaskExecutor::Events TaskExecutor::toEvent(const std::string& str)
 
 void TaskExecutor::execute(std::istream& istr)
 {
+    start();
     while (getCompletionStatus() == CompletionStatus::unFinished)
     {
         if (!std::getline(istr, m_currentLine)) break;
@@ -105,8 +121,7 @@ TaskExecutor::ActionResult TaskExecutor::readExpectedResult()
 
 TaskExecutor::ActionResult TaskExecutor::test()
 {
-    bool result = m_task.execute();
-    m_result = (result == m_task.getExpectedResult());
+    m_result = m_task.execute();
     return success();
 }
 

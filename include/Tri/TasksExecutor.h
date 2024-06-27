@@ -61,7 +61,6 @@ public:
 
     // whether the test result mathed expected one
     std::optional<bool> getResult() const { return m_result; }
-
     // Fills States Table
     static StatesTable fillStatesTable();
 

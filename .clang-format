@@ -1,0 +1,52 @@
+﻿---
+# clang-format docs:https://releases.llvm.org/11.0.0/tools/clang/docs/ClangFormatStyleOptions.html
+# dump default values: clang-format -style=microsoft -dump-config > clang-format-default-ms
+
+# general settings (rarely changed)
+#Language: Cpp
+Standard: c++17
+BasedOnStyle: Microsoft
+ColumnLimit: 120
+
+# arrays in JSON
+BreakArrays: false
+
+# brace position
+BraceWrapping:
+  BeforeLambdaBody: true
+  BeforeWhile: true
+  AfterCaseLabel: true
+
+# indentation
+IndentCaseLabels: true
+
+# alignment
+PointerAlignment: Left
+AccessModifierOffset: -4
+AlignAfterOpenBracket: AlwaysBreak
+ContinuationIndentWidth: 4
+PenaltyExcessCharacter: 100
+
+# parameters reflow
+BreakConstructorInitializers: BeforeComma
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowAllConstructorInitializersOnNextLine: false
+BinPackArguments: true
+BinPackParameters: false
+AlwaysBreakTemplateDeclarations: true
+QualifierAlignment: Left
+
+# sorting
+SortIncludes: false
+SortUsingDeclarations: false
+
+# fixing issues
+FixNamespaceComments: true
+
+# short blocks single line vs multiple lines
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLambdasOnASingleLine: Inline
+...

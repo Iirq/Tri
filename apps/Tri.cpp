@@ -4,9 +4,9 @@
 
 int main(int ac, char* argv[])
 {
-    if (ac < 1)
+    if (ac < 2)
     {
-        std::cout << "to few options";
+        std::cout << "to few options\n";
         return 1;
     }
 
